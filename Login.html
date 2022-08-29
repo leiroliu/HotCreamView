@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+
+    <h1>登陆</h1>
+
+    <input type="text" placeholder="请输入用户名" id="accountName" name ="accountName"/>
+    <br/>
+    <br/>
+    <input type="password" placeholder="请输入密码" id="password" name ="password"/>
+    <br/>
+    <br/>
+    <button class="btn-check" onclick="login()">登陆</button>
+    <a class="btn-link" href="SignUp.html">还没有账号，点击这里注册</a>
+
+
+    <script >
+        function login(){
+            var accountName = $("#accountName").val();
+            var password = $("#password").val();
+            post("/auth/authLogin", {
+                "accountName":accountName,
+                "accountPwd": password,
+            }, function (data){
+                if(eval(data.code == API_CODE_SUCCESS)){
+                    // setLoginCookie(data.data);
+
+                    saveLocal(loginUserTokenKey, eval(data).data.val, eval(data).data.age);
+                    $(location).attr("href", PATH_BASE_PATH, +"/index.html");
+
+                }else {
+                    alert(eval(data).info);
+                }
+            }, function (data){}, function (header){
+                // alert(JSON.stringify(header));
+            })
+        }
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script type="text/javascript" src="js/apiutils.js"></script>
+</body>
+</html>
