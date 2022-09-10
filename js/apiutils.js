@@ -80,6 +80,6 @@ function post(path , data, callback, errorBack, headerBack){
 }
 
 
-
-
-
+function get(){
+    alert("execute alert!!")
+}
