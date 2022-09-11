@@ -1,7 +1,7 @@
 
 
 var api = "http://localhost:8080/api"
-axios.defaults.baseURL = 'https://api.example.com';
+
 
 const API_CODE_SUCCESS = 0;
 const PATH_BASE_PATH = "/HotCreamView";
